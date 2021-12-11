@@ -2,6 +2,10 @@ import discord,requests,json,urllib,re,wikipedia,time
 from discord.ext import commands
 from pytube import YouTube
 from googlesearch import search as searcher
+from flask import Flask
+from threading import Thread
+app=Flask('')
+app.route('/')
 client=commands.Bot(command_prefix='!',help_command=None,description='An ADOFAI.GG API USING BOT')
 lang=dict()
 korfile=open('kor.json','r',encoding='UTF8')
@@ -440,4 +444,12 @@ async def report(ctx):
         f.close()
     except:
         pass
-client.run('e')
+def main():
+    return "Your bot is alive!"
+def keep_alive():
+    server = Thread(target=run)
+    server.start()
+def run():
+    app.run(host="0.0.0.0", port=8080)
+keep_alive()
+client.run('wasans',bot=True,reconnect=True)
